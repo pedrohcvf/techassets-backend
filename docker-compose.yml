@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: techassets-db
+    environment:
+      POSTGRES_DB: techassets
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5432:5432"
