@@ -1,4 +1,4 @@
-package com.techassets.techassets.estoque.dto;
+package com.techassets.techassets.estoque.produto.dto;
 
 public record ProdutoRequestDto(String nome,
                                 String descricao,

@@ -1,9 +1,9 @@
-package com.techassets.techassets.estoque.service;
+package com.techassets.techassets.estoque.produto.service;
 
-import com.techassets.techassets.estoque.dto.ProdutoRequestDto;
-import com.techassets.techassets.estoque.dto.ProdutoResponseDto;
-import com.techassets.techassets.estoque.entity.Produto;
-import com.techassets.techassets.estoque.repository.ProdutoRepository;
+import com.techassets.techassets.estoque.produto.dto.ProdutoRequestDto;
+import com.techassets.techassets.estoque.produto.dto.ProdutoResponseDto;
+import com.techassets.techassets.estoque.produto.entity.Produto;
+import com.techassets.techassets.estoque.produto.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

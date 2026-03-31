@@ -1,8 +1,8 @@
-package com.techassets.techassets.estoque.controller;
+package com.techassets.techassets.estoque.produto.controller;
 
-import com.techassets.techassets.estoque.dto.ProdutoRequestDto;
-import com.techassets.techassets.estoque.dto.ProdutoResponseDto;
-import com.techassets.techassets.estoque.service.ProdutoService;
+import com.techassets.techassets.estoque.produto.dto.ProdutoRequestDto;
+import com.techassets.techassets.estoque.produto.dto.ProdutoResponseDto;
+import com.techassets.techassets.estoque.produto.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

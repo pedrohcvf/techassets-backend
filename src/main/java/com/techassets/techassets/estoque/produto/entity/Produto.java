@@ -1,4 +1,4 @@
-package com.techassets.techassets.estoque.entity;
+package com.techassets.techassets.estoque.produto.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
