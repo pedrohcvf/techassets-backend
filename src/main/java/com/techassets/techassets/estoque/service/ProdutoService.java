@@ -16,18 +16,18 @@ public class ProdutoService {
     public ProdutoRepository produtoRepository;
 
     // CADASTRAR PRODUTO
-    public ProdutoResponseDto cadastrarProduto(ProdutoRequestDto dto){
+    public ProdutoResponseDto addProduto(ProdutoRequestDto dto){
         Produto produto = toEntity(dto);
         return toResponseDto(produtoRepository.save(produto));
     }
 
     // DELETAR PRODUTO
-    public void deletarPorId(Long id){
+    public void deleteProduto(Long id){
         produtoRepository.deleteById(id);
     }
 
     // ATUALIZAR PRODUTO
-    public ProdutoResponseDto atualizarProduto(Long id, ProdutoRequestDto dto){
+    public ProdutoResponseDto updateProduto(Long id, ProdutoRequestDto dto){
         buscarEntidadePorId(id);
         Produto produto = toEntity(dto);
         produto.setId(id);
