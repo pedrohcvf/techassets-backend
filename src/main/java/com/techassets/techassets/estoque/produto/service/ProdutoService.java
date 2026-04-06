@@ -34,7 +34,7 @@ public class ProdutoService {
         return toResponseDto(produtoRepository.save(produto));
     }
 
-    // BUSCAR TODOS OS PRODUTOS
+    // LISTAR TODOS OS PRODUTOS
     public List<ProdutoResponseDto> listarTodos(){
         return produtoRepository.findAll()
                                 .stream()

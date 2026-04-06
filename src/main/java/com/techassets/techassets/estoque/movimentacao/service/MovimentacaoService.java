@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MovimentacaoService {
@@ -34,7 +35,7 @@ public class MovimentacaoService {
     }
 
     // REGISTRO DE MOVIMENTAÇÃO
-    public MovimentacaoResponseDto registerMovimentacao(MovimentacaoRequestDto dto){
+    public MovimentacaoResponseDto registrarMovimentacao(MovimentacaoRequestDto dto){
 
         // BUSCA NO DB
         Produto produto = produtoRepository.findById(dto.produtoId())
@@ -43,6 +44,8 @@ public class MovimentacaoService {
         // VERIFICAÇÃO DO TIPO DE MOVIMENTAÇÃO
         if (dto.tipo() == TipoMovimentacao.ENTRADA){
             produto.setQtdeAtual(produto.getQtdeAtual() + dto.quantidade());
+        } if (produto.getQtdeAtual() < dto.quantidade()){
+            throw new RuntimeException("Quantidade insuficiente no estoque");
         } else {
             produto.setQtdeAtual(produto.getQtdeAtual() - dto.quantidade());
         }
@@ -58,4 +61,21 @@ public class MovimentacaoService {
 
         return toResponseDto(movimentacaoRepository.save(movimentacao));
     }
+
+    // LISTAR TODOS
+    public List<MovimentacaoResponseDto> listarTodas(){
+        return movimentacaoRepository.findAll()
+                .stream()
+                .map(movimentacao -> toResponseDto(movimentacao) )
+                .toList();
+    }
+
+   // LISTAR POR PRODUTO
+   public List<MovimentacaoResponseDto> listarPorProduto(Long produtoId){
+        return movimentacaoRepository.findByProdutoId(produtoId)
+                .stream()
+                .map(movimentacao -> toResponseDto(movimentacao))
+                .toList();
+   }
+
 }
