@@ -32,7 +32,7 @@ O **TechAssets** é um sistema interno desenvolvido com Java e Spring Boot para 
 
 | Tecnologia       | Descrição                              |
 |------------------|----------------------------------------|
-| Java 21          | Linguagem principal                    |
+| Java 17          | Linguagem principal                    |
 | Spring Boot 3    | Framework para criação da API REST     |
 | Spring Data JPA  | Abstração de acesso a dados            |
 | PostgreSQL       | Banco de dados relacional              |
