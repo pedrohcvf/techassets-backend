@@ -64,7 +64,7 @@ public class ColaboradorService {
                 .toList();
     }
 
-    // METODO PARA BUSCA
+    // METODO PARA BUSCA DO ID
     public Colaborador buscarEntidadePorId(Long id){
         return colaboradorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Colaborador com id" + id + " não encontrado"));
