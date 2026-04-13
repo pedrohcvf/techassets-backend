@@ -3,6 +3,7 @@ package com.techassets.techassets.patrimonio.colaborador.controller;
 import com.techassets.techassets.patrimonio.colaborador.dto.ColaboradorRequestDto;
 import com.techassets.techassets.patrimonio.colaborador.dto.ColaboradorResponseDto;
 import com.techassets.techassets.patrimonio.colaborador.service.ColaboradorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +14,11 @@ import java.util.List;
 public class ColaboradorController {
 
     @Autowired
-    public ColaboradorService colaboradorService;
+    private ColaboradorService colaboradorService;
 
     // CADASTRAR COLABORADOR
     @PostMapping
-    public ColaboradorResponseDto cadastrarColaborador(@RequestBody ColaboradorRequestDto dto){
+    public ColaboradorResponseDto cadastrarColaborador(@Valid @RequestBody ColaboradorRequestDto dto){
         return colaboradorService.cadastrarColaborador(dto);
     }
 
@@ -29,7 +30,7 @@ public class ColaboradorController {
 
     // ATUALIZAR COLABORADOR
     @PutMapping("/{id}")
-    public ColaboradorResponseDto atualizarColaborador(@PathVariable Long id, @RequestBody ColaboradorRequestDto dto){
+    public ColaboradorResponseDto atualizarColaborador(@PathVariable Long id, @Valid @RequestBody ColaboradorRequestDto dto){
         return colaboradorService.atualizarColaborador(id, dto);
     }
 

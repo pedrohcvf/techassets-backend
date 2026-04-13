@@ -3,6 +3,7 @@ package com.techassets.techassets.estoque.produto.controller;
 import com.techassets.techassets.estoque.produto.dto.ProdutoRequestDto;
 import com.techassets.techassets.estoque.produto.dto.ProdutoResponseDto;
 import com.techassets.techassets.estoque.produto.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +14,11 @@ import java.util.List;
 public class ProdutoController {
 
     @Autowired
-    public ProdutoService produtoService;
+    private ProdutoService produtoService;
 
     // CADASTRAR PRODUTO
     @PostMapping
-    public ProdutoResponseDto addProduto(@RequestBody ProdutoRequestDto dto){
+    public ProdutoResponseDto addProduto(@Valid @RequestBody ProdutoRequestDto dto){
         return produtoService.addProduto(dto);
     }
 
@@ -29,7 +30,7 @@ public class ProdutoController {
 
     // ATUALIZAR DADOS DO PRODUTO
     @PutMapping("/{id}")
-    public ProdutoResponseDto updateProduto(@PathVariable Long id, @RequestBody ProdutoRequestDto dto){
+    public ProdutoResponseDto updateProduto(@PathVariable Long id,@Valid @RequestBody ProdutoRequestDto dto){
         return produtoService.updateProduto(id, dto);
     }
 

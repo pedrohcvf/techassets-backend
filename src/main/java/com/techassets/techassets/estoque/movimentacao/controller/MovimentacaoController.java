@@ -3,6 +3,7 @@ package com.techassets.techassets.estoque.movimentacao.controller;
 import com.techassets.techassets.estoque.movimentacao.dto.MovimentacaoRequestDto;
 import com.techassets.techassets.estoque.movimentacao.dto.MovimentacaoResponseDto;
 import com.techassets.techassets.estoque.movimentacao.service.MovimentacaoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +14,11 @@ import java.util.List;
 public class MovimentacaoController {
 
     @Autowired
-    public MovimentacaoService movimentacaoService;
+    private MovimentacaoService movimentacaoService;
 
     // REGISTRO DE MOVIMENTAÇÃO
     @PostMapping
-    public MovimentacaoResponseDto registrarMovimentacao(@RequestBody MovimentacaoRequestDto dto){
+    public MovimentacaoResponseDto registrarMovimentacao(@Valid @RequestBody MovimentacaoRequestDto dto){
         return movimentacaoService.registrarMovimentacao(dto);
     }
 

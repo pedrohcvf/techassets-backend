@@ -1,8 +1,10 @@
 package com.techassets.techassets.patrimonio.colaborador.dto;
 
-public record ColaboradorRequestDto( String nome,
-                                     String email,
-                                     String departamento,
-                                     String cargo,
-                                     boolean ativo) {
+import jakarta.validation.constraints.NotBlank;
+
+public record ColaboradorRequestDto(@NotBlank String nome,
+                                    @NotBlank String email,
+                                    @NotBlank String departamento,
+                                    @NotBlank String cargo,
+                                    boolean ativo) {
 }

@@ -1,8 +1,11 @@
 package com.techassets.techassets.estoque.produto.dto;
 
-public record ProdutoRequestDto(String nome,
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
+public record ProdutoRequestDto(@NotBlank String nome,
                                 String descricao,
-                                String categoria,
-                                int qtdeMinima,
-                                String unidadeMedida) {
+                                @NotBlank String categoria,
+                                @Min(0) int qtdeMinima,
+                                @NotBlank String unidadeMedida) {
 }

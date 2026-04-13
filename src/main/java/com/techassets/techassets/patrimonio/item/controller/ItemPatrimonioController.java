@@ -4,6 +4,7 @@ import com.techassets.techassets.patrimonio.item.dto.ItemPatrimonioRequestDto;
 import com.techassets.techassets.patrimonio.item.dto.ItemPatrimonioResponseDto;
 import com.techassets.techassets.patrimonio.item.enums.StatusItem;
 import com.techassets.techassets.patrimonio.item.service.ItemPatrimonioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +15,11 @@ import java.util.List;
 public class ItemPatrimonioController {
 
     @Autowired
-    public ItemPatrimonioService itemPatrimonioService;
+    private ItemPatrimonioService itemPatrimonioService;
 
     // CADASTRAR ITEM
     @PostMapping
-    public ItemPatrimonioResponseDto cadastrarItem(@RequestBody ItemPatrimonioRequestDto dto){
+    public ItemPatrimonioResponseDto cadastrarItem(@Valid @RequestBody ItemPatrimonioRequestDto dto){
         return itemPatrimonioService.cadastrarItem(dto);
     }
 
@@ -36,7 +37,7 @@ public class ItemPatrimonioController {
 
     // ATUALIZAR ITEM
     @PutMapping("/{id}")
-    public ItemPatrimonioResponseDto atualizarItem(@RequestBody ItemPatrimonioRequestDto dto,@PathVariable Long id){
+    public ItemPatrimonioResponseDto atualizarItem(@Valid @RequestBody ItemPatrimonioRequestDto dto, @PathVariable Long id){
         return itemPatrimonioService.atualizarItem(id,dto);
     }
 
