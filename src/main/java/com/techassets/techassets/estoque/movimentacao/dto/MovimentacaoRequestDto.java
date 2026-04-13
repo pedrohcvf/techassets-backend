@@ -4,5 +4,6 @@ import com.techassets.techassets.estoque.movimentacao.enums.TipoMovimentacao;
 
 public record MovimentacaoRequestDto(Long produtoId,
                                      TipoMovimentacao tipo,
-                                     int quantidade) {
+                                     int quantidade,
+                                     String observacao) {
 }

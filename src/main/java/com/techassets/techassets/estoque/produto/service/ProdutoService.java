@@ -28,9 +28,8 @@ public class ProdutoService {
 
     // ATUALIZAR PRODUTO
     public ProdutoResponseDto updateProduto(Long id, ProdutoRequestDto dto){
-        buscarEntidadePorId(id);
-        Produto produto = toEntity(dto);
-        produto.setId(id);
+        Produto produto = buscarEntidadePorId(id);
+        atualizarProdutoCampos(produto, dto);
         return toResponseDto(produtoRepository.save(produto));
     }
 
@@ -73,6 +72,15 @@ public class ProdutoService {
     // METODO PARA AS BUSCAS
     private Produto buscarEntidadePorId(Long id){
         return produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto com id" + id + " não encontrado."));
+    }
+
+    // ATUALIZAR CAMPOS
+    public void atualizarProdutoCampos(Produto produto, ProdutoRequestDto dto){
+        produto.setNome(dto.nome());
+        produto.setDescricao(dto.descricao());
+        produto.setCategoria(dto.categoria());
+        produto.setUnidadeMedida(dto.unidadeMedida());
+        produto.setQtdeMinima(dto.qtdeMinima());
     }
 
 }

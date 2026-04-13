@@ -50,9 +50,8 @@ public class ColaboradorService {
 
     // ATUALIZAR COLABORADOR
     public ColaboradorResponseDto atualizarColaborador(Long id, ColaboradorRequestDto dto){
-        colaboradorRepository.findById(id);
-        Colaborador colaborador = toEntity(dto);
-        colaborador.setId(id);
+        Colaborador colaborador = buscarEntidadePorId(id);
+        atualizarColaboradorCampos(colaborador, dto);
         return toResponseDto(colaboradorRepository.save(colaborador));
     }
 
@@ -73,6 +72,15 @@ public class ColaboradorService {
     // LISTAR POR ID
     public ColaboradorResponseDto listarPorId(Long id){
         return toResponseDto(buscarEntidadePorId(id));
+    }
+
+    // ATUALIZAR CAMPOS
+    public void atualizarColaboradorCampos(Colaborador colaborador, ColaboradorRequestDto dto){
+        colaborador.setNome(dto.nome());
+        colaborador.setEmail(dto.email());
+        colaborador.setDepartamento(dto.departamento());
+        colaborador.setCargo(dto.cargo());
+        colaborador.setAtivo(dto.ativo());
     }
 
 }

@@ -1,9 +1,7 @@
 package com.techassets.techassets.estoque.produto.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.From;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 
 @Data
 @Entity

@@ -17,10 +17,10 @@ import java.util.List;
 public class MovimentacaoService {
 
     @Autowired
-    public MovimentacaoRepository movimentacaoRepository;
+    private MovimentacaoRepository movimentacaoRepository;
 
     @Autowired
-    public ProdutoRepository produtoRepository;
+    private ProdutoRepository produtoRepository;
 
     // CONVERSÃO PARA DTO
     public MovimentacaoResponseDto toResponseDto(Movimentacao movimentacao){
@@ -44,9 +44,9 @@ public class MovimentacaoService {
         // VERIFICAÇÃO DO TIPO DE MOVIMENTAÇÃO
         if (dto.tipo() == TipoMovimentacao.ENTRADA){
             produto.setQtdeAtual(produto.getQtdeAtual() + dto.quantidade());
-        } if (produto.getQtdeAtual() < dto.quantidade()){
+        } else if (produto.getQtdeAtual() < dto.quantidade()){
             throw new RuntimeException("Quantidade insuficiente no estoque");
-        } else {
+        } else if (dto.tipo() == TipoMovimentacao.SAIDA){
             produto.setQtdeAtual(produto.getQtdeAtual() - dto.quantidade());
         }
 
@@ -55,6 +55,7 @@ public class MovimentacaoService {
         movimentacao.setProduto(produto);
         movimentacao.setTipo(dto.tipo());
         movimentacao.setQuantidade(dto.quantidade());
+        movimentacao.setObservacao(dto.observacao());
         movimentacao.setData(LocalDateTime.now());
 
         produtoRepository.save(produto);

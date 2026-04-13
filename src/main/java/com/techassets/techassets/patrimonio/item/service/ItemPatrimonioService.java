@@ -16,10 +16,10 @@ import java.util.List;
 public class ItemPatrimonioService {
 
     @Autowired
-    public ItemPatrimonioRepository itemPatrimonioRepository;
+    private ItemPatrimonioRepository itemPatrimonioRepository;
 
     @Autowired
-    public ColaboradorRepository colaboradorRepository;
+    private ColaboradorRepository colaboradorRepository;
 
     // CONVERSÃO PARA DTO
     public ItemPatrimonioResponseDto toResponseDto(ItemPatrimonio itemPatrimonio){
@@ -28,7 +28,7 @@ public class ItemPatrimonioService {
                 itemPatrimonio.getNome(),
                 itemPatrimonio.getNumeroSerie(),
                 itemPatrimonio.getCategoria(),
-                itemPatrimonio.getColaborador().getNome(),
+                itemPatrimonio.getColaborador() == null ? "Item sem colaborador" : itemPatrimonio.getColaborador().getNome(),
                 itemPatrimonio.getStatusItem(),
                 itemPatrimonio.getFornecedor());
     }
@@ -60,9 +60,8 @@ public class ItemPatrimonioService {
 
     // ATUALIZAR ITEM
     public ItemPatrimonioResponseDto atualizarItem(Long id, ItemPatrimonioRequestDto dto){
-        itemPatrimonioRepository.findById(id);
-        ItemPatrimonio itemPatrimonio = toEntity(dto);
-        itemPatrimonio.setId(id);
+        ItemPatrimonio itemPatrimonio = buscarIdItem(id);
+        atualizarItensCampos(itemPatrimonio, dto);
         return toResponseDto(itemPatrimonioRepository.save(itemPatrimonio));
     }
 
@@ -100,6 +99,18 @@ public class ItemPatrimonioService {
                 .stream()
                 .map(itemPatrimonio -> toResponseDto(itemPatrimonio))
                 .toList();
+    }
+
+    // ATUALIZAR OS CAMPOS
+    public void atualizarItensCampos(ItemPatrimonio itemPatrimonio, ItemPatrimonioRequestDto dto){
+        Colaborador colaborador = colaboradorRepository.findById(dto.colaboradorId())
+                .orElseThrow(() -> new RuntimeException("Colaborador não encontrado."));
+        itemPatrimonio.setNome(dto.nome());
+        itemPatrimonio.setNumeroSerie(dto.numeroSerie());
+        itemPatrimonio.setCategoria(dto.categoria());
+        itemPatrimonio.setColaborador(colaborador);
+        itemPatrimonio.setStatusItem(dto.statusItem());
+        itemPatrimonio.setFornecedor(dto.fornecedor());
     }
 
 }
