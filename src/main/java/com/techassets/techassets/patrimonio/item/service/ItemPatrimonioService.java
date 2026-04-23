@@ -7,7 +7,6 @@ import com.techassets.techassets.patrimonio.item.dto.ItemPatrimonioResponseDto;
 import com.techassets.techassets.patrimonio.item.entity.ItemPatrimonio;
 import com.techassets.techassets.patrimonio.item.enums.StatusItem;
 import com.techassets.techassets.patrimonio.item.repository.ItemPatrimonioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +14,18 @@ import java.util.List;
 @Service
 public class ItemPatrimonioService {
 
-    @Autowired
-    private ItemPatrimonioRepository itemPatrimonioRepository;
 
-    @Autowired
-    private ColaboradorRepository colaboradorRepository;
+    private final ItemPatrimonioRepository itemPatrimonioRepository;
+
+
+    private final ColaboradorRepository colaboradorRepository;
+
+
+    public ItemPatrimonioService(ItemPatrimonioRepository itemPatrimonioRepository, ColaboradorRepository colaboradorRepository){
+        this.itemPatrimonioRepository = itemPatrimonioRepository;
+        this.colaboradorRepository = colaboradorRepository;
+    }
+
 
     // CONVERSÃO PARA DTO
     public ItemPatrimonioResponseDto toResponseDto(ItemPatrimonio itemPatrimonio){
@@ -32,6 +38,7 @@ public class ItemPatrimonioService {
                 itemPatrimonio.getStatusItem(),
                 itemPatrimonio.getFornecedor());
     }
+
 
     // CONVERSÃO PARA ENTIDADE
     public ItemPatrimonio toEntity(ItemPatrimonioRequestDto dto){
@@ -47,16 +54,19 @@ public class ItemPatrimonioService {
         return itemPatrimonio;
     }
 
+
     // CADASTRAR ITEM
     public ItemPatrimonioResponseDto cadastrarItem(ItemPatrimonioRequestDto dto){
         ItemPatrimonio itemPatrimonio = toEntity(dto);
         return toResponseDto(itemPatrimonioRepository.save(itemPatrimonio));
     }
 
+
     // DELETAR ITEM
     public void deletarItem(Long id){
         itemPatrimonioRepository.deleteById(id);
     }
+
 
     // ATUALIZAR ITEM
     public ItemPatrimonioResponseDto atualizarItem(Long id, ItemPatrimonioRequestDto dto){
@@ -65,6 +75,7 @@ public class ItemPatrimonioService {
         return toResponseDto(itemPatrimonioRepository.save(itemPatrimonio));
     }
 
+
     // LISTAR TODAS
     public List<ItemPatrimonioResponseDto> listarTodos(){
         return itemPatrimonioRepository.findAll()
@@ -72,6 +83,7 @@ public class ItemPatrimonioService {
                 .map(itemPatrimonio -> toResponseDto(itemPatrimonio))
                 .toList();
     }
+
 
     // METODO PARA BUSCA DO ID
     private ItemPatrimonio buscarIdItem(Long id){
@@ -85,6 +97,7 @@ public class ItemPatrimonioService {
         return toResponseDto(buscarIdItem(id));
     }
 
+
     // LISTAR POR COLABORADOR
     public List<ItemPatrimonioResponseDto> listarPorColaborador(Long colaboradorId){
         return itemPatrimonioRepository.findByColaboradorId(colaboradorId)
@@ -93,6 +106,7 @@ public class ItemPatrimonioService {
                 .toList();
     }
 
+
     // LISTAR POR STATUS
     public List<ItemPatrimonioResponseDto> listarPorStatus(StatusItem status){
         return itemPatrimonioRepository.findByStatusItem(status)
@@ -100,6 +114,7 @@ public class ItemPatrimonioService {
                 .map(itemPatrimonio -> toResponseDto(itemPatrimonio))
                 .toList();
     }
+
 
     // ATUALIZAR OS CAMPOS
     public void atualizarItensCampos(ItemPatrimonio itemPatrimonio, ItemPatrimonioRequestDto dto){

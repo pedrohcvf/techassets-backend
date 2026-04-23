@@ -4,7 +4,6 @@ import com.techassets.techassets.patrimonio.colaborador.dto.ColaboradorRequestDt
 import com.techassets.techassets.patrimonio.colaborador.dto.ColaboradorResponseDto;
 import com.techassets.techassets.patrimonio.colaborador.entity.Colaborador;
 import com.techassets.techassets.patrimonio.colaborador.repository.ColaboradorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.List;
 @Service
 public class ColaboradorService {
 
-    @Autowired
-    private ColaboradorRepository colaboradorRepository;
+    private final ColaboradorRepository colaboradorRepository;
+
+    public ColaboradorService(ColaboradorRepository colaboradorRepository){
+        this.colaboradorRepository = colaboradorRepository;
+    }
 
     // CONVERSÃO PARA DTO
     public ColaboradorResponseDto toResponseDto(Colaborador colaborador){

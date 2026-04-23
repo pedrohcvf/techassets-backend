@@ -7,7 +7,6 @@ import com.techassets.techassets.estoque.movimentacao.enums.TipoMovimentacao;
 import com.techassets.techassets.estoque.movimentacao.repository.MovimentacaoRepository;
 import com.techassets.techassets.estoque.produto.entity.Produto;
 import com.techassets.techassets.estoque.produto.repository.ProdutoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,11 +15,18 @@ import java.util.List;
 @Service
 public class MovimentacaoService {
 
-    @Autowired
-    private MovimentacaoRepository movimentacaoRepository;
 
-    @Autowired
-    private ProdutoRepository produtoRepository;
+    private final MovimentacaoRepository movimentacaoRepository;
+
+
+    private final ProdutoRepository produtoRepository;
+
+
+    public MovimentacaoService(MovimentacaoRepository movimentacaoRepository, ProdutoRepository produtoRepository){
+        this.movimentacaoRepository = movimentacaoRepository;
+        this.produtoRepository = produtoRepository;
+    }
+
 
     // CONVERSÃO PARA DTO
     public MovimentacaoResponseDto toResponseDto(Movimentacao movimentacao){
@@ -33,6 +39,7 @@ public class MovimentacaoService {
                 movimentacao.getObservacao()
         );
     }
+
 
     // REGISTRO DE MOVIMENTAÇÃO
     public MovimentacaoResponseDto registrarMovimentacao(MovimentacaoRequestDto dto){
@@ -63,6 +70,7 @@ public class MovimentacaoService {
         return toResponseDto(movimentacaoRepository.save(movimentacao));
     }
 
+
     // LISTAR TODOS
     public List<MovimentacaoResponseDto> listarTodas(){
         return movimentacaoRepository.findAll()
@@ -71,6 +79,7 @@ public class MovimentacaoService {
                 .toList();
     }
 
+
    // LISTAR POR PRODUTO
    public List<MovimentacaoResponseDto> listarPorProduto(Long produtoId){
         return movimentacaoRepository.findByProdutoId(produtoId)
@@ -78,5 +87,6 @@ public class MovimentacaoService {
                 .map(movimentacao -> toResponseDto(movimentacao))
                 .toList();
    }
+
 
 }
