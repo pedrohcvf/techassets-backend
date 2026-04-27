@@ -9,7 +9,7 @@
 O **TechAssets** é um sistema interno desenvolvido com Java e Spring Boot para startups de TI que precisam organizar seus ativos e suprimentos de forma centralizada e eficiente. A API oferece dois módulos principais:
 
 - 📦 **Módulo Estoque** — Controle de produtos e movimentações de entrada e saída
-- 🖥️ **Módulo Patrimônio** *(em desenvolvimento)* — Gestão de ativos físicos da empresa
+- 🖥️ **Módulo Patrimônio**  — Gestão de ativos físicos da empresa
 
 ---
 
