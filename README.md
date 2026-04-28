@@ -9,7 +9,7 @@
 O **TechAssets** é um sistema interno desenvolvido com Java e Spring Boot para startups de TI que precisam organizar seus ativos e suprimentos de forma centralizada e eficiente. A API oferece dois módulos principais:
 
 - 📦 **Módulo Estoque** — Controle de produtos e movimentações de entrada e saída
-- 🖥️ **Módulo Patrimônio** *(em desenvolvimento)* — Gestão de ativos físicos da empresa
+- 🖥️ **Módulo Patrimônio**  — Gestão de ativos físicos da empresa
 
 ---
 
@@ -23,8 +23,20 @@ O **TechAssets** é um sistema interno desenvolvido com Java e Spring Boot para 
 - ✅ Validação de estoque na saída (regra de negócio)
 - ✅ Cálculo automático de estoque disponível
 
-### 🖥️ Patrimônio
-- 🔄 Em desenvolvimento
+### 🖥️ Patrimônio — Itens
+- ✅ Cadastro e listagem de itens de patrimônio
+- ✅ Busca de item por ID
+- ✅ Atualização e remoção de itens
+- ✅ Filtro por colaborador responsável
+- ✅ Filtro por status do item (Alocado, Disponível, Manutenção, Baixado)
+- ✅ Vinculação de item a colaborador
+
+### 👥 Patrimônio — Colaboradores
+- ✅ Cadastro e listagem de colaboradores
+- ✅ Busca de colaborador por ID
+- ✅ Atualização e remoção de colaboradores
+- ✅ Controle de status ativo/inativo
+
 
 ---
 
@@ -59,6 +71,21 @@ src/main/java/com/techassets/techassets/
 │       ├── entity/
 │       ├── repository/
 │       └── service/
+├── patrimonio/
+│   ├── colaborador/
+│   │   ├── controller/
+│   │   ├── dto/
+│   │   ├── entity/
+│   │   ├── repository/
+│   │   └── service/
+│   └── item/
+│       ├── controller/
+│       ├── dto/
+│       ├── entity/
+│       ├── enums/
+│       ├── repository/
+│       └── service/
+├── exception/
 └── TechassetsApplication.java
 ```
 
@@ -83,6 +110,30 @@ src/main/java/com/techassets/techassets/
 | `GET`    | `/movimentacoes`     | Lista todas as movimentações       |
 | `GET`    | `/movimentacoes/{id}`| Busca uma movimentação por ID      |
 | `POST`   | `/movimentacoes`     | Registra uma nova movimentação     |
+
+### 🖥️ Itens de Patrimônio
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| `GET` | `/itens` | Lista todos os itens |
+| `GET` | `/itens/{id}` | Busca um item por ID |
+| `GET` | `/itens/colaborador/{id}` | Lista itens por colaborador |
+| `GET` | `/itens/status/{status}` | Lista itens por status |
+| `POST` | `/itens` | Cadastra um novo item |
+| `PUT` | `/itens/{id}` | Atualiza um item existente |
+| `DELETE` | `/itens/{id}` | Remove um item |
+
+### 👥 Colaboradores
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| `GET` | `/colaboradores` | Lista todos os colaboradores |
+| `GET` | `/colaboradores/{id}` | Busca um colaborador por ID |
+| `POST` | `/colaboradores` | Cadastra um novo colaborador |
+| `PUT` | `/colaboradores/{id}` | Atualiza um colaborador existente |
+| `DELETE` | `/colaboradores/{id}` | Remove um colaborador |
+
+---
 
 ---
 
@@ -190,9 +241,42 @@ http://localhost:8080
 
 ---
 
+**POST** `/itens` — Cadastrar um item de patrimônio:
+```json
+{
+  "nome": "Notebook Dell XPS 15",
+  "numeroSerie": "SN-001-DELL",
+  "categoria": "Hardware",
+  "colaboradorId": 1,
+  "statusItem": "ALOCADO",
+  "fornecedor": "Dell"
+}
+```
+
+**Resposta** `201 Created`:
+```json
+{
+  "id": 1,
+  "nome": "Notebook Dell XPS 15",
+  "numeroSerie": "SN-001-DELL",
+  "categoria": "Hardware",
+  "colaborador": "Carlos Mendes",
+  "statusItem": "ALOCADO",
+  "fornecedor": "Dell"
+}
+```
+
+---
+
+## 🔗 Repositório do Frontend
+
+Este backend é consumido pelo [TechAssets Frontend](https://github.com/pedrohcvf/techassets-frontend) — desenvolvido com React e TypeScript.
+
+---
+
 ## 👤 Autor
 
 **Pedro Carvalho**
 
-[![GitHub](https://img.shields.io/badge/GitHub-pedrohcvf-181717?style=flat&logo=github)](https://github.com/pedrohcvf)
+[![GitHub](https://img.shields.io/badge/GitHub-pedrohcvf-181717?style=flat&logo=github)](https://github.com/pedrohcvf/techassets-backend)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-pcarvalhof-0A66C2?style=flat&logo=linkedin)](https://linkedin.com/in/pcarvalhof)
