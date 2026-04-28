@@ -7,6 +7,8 @@ import com.techassets.techassets.estoque.movimentacao.enums.TipoMovimentacao;
 import com.techassets.techassets.estoque.movimentacao.repository.MovimentacaoRepository;
 import com.techassets.techassets.estoque.produto.entity.Produto;
 import com.techassets.techassets.estoque.produto.repository.ProdutoRepository;
+import com.techassets.techassets.exception.EstoqueInsuficienteException;
+import com.techassets.techassets.exception.ProdutoNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -46,13 +48,13 @@ public class MovimentacaoService {
 
         // BUSCA NO DB
         Produto produto = produtoRepository.findById(dto.produtoId())
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+                .orElseThrow(() -> new ProdutoNotFoundException(dto.produtoId()));
 
         // VERIFICAÇÃO DO TIPO DE MOVIMENTAÇÃO
         if (dto.tipo() == TipoMovimentacao.ENTRADA){
             produto.setQtdeAtual(produto.getQtdeAtual() + dto.quantidade());
         } else if (produto.getQtdeAtual() < dto.quantidade()){
-            throw new RuntimeException("Quantidade insuficiente no estoque");
+            throw new EstoqueInsuficienteException();
         } else if (dto.tipo() == TipoMovimentacao.SAIDA){
             produto.setQtdeAtual(produto.getQtdeAtual() - dto.quantidade());
         }

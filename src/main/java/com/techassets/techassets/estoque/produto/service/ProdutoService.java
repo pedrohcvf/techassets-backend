@@ -4,6 +4,7 @@ import com.techassets.techassets.estoque.produto.dto.ProdutoRequestDto;
 import com.techassets.techassets.estoque.produto.dto.ProdutoResponseDto;
 import com.techassets.techassets.estoque.produto.entity.Produto;
 import com.techassets.techassets.estoque.produto.repository.ProdutoRepository;
+import com.techassets.techassets.exception.ProdutoNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -84,7 +85,7 @@ public class ProdutoService {
     // METODO PARA AS BUSCAS
     private Produto buscarEntidadePorId(Long id){
         return produtoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto com id" + id + " não encontrado."));
+                .orElseThrow(() -> new ProdutoNotFoundException(id));
     }
 
 

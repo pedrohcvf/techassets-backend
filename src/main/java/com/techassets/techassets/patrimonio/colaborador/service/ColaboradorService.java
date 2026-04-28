@@ -1,5 +1,6 @@
 package com.techassets.techassets.patrimonio.colaborador.service;
 
+import com.techassets.techassets.exception.ColaboradorNotFoundException;
 import com.techassets.techassets.patrimonio.colaborador.dto.ColaboradorRequestDto;
 import com.techassets.techassets.patrimonio.colaborador.dto.ColaboradorResponseDto;
 import com.techassets.techassets.patrimonio.colaborador.entity.Colaborador;
@@ -68,7 +69,7 @@ public class ColaboradorService {
     // METODO PARA BUSCA DO ID
     public Colaborador buscarEntidadePorId(Long id){
         return colaboradorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Colaborador com id" + id + " não encontrado"));
+                .orElseThrow(() -> new ColaboradorNotFoundException(id));
     }
 
     // LISTAR POR ID

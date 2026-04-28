@@ -1,5 +1,7 @@
 package com.techassets.techassets.patrimonio.item.service;
 
+import com.techassets.techassets.exception.ColaboradorNotFoundException;
+import com.techassets.techassets.exception.ItemPatrimonioNotFoundException;
 import com.techassets.techassets.patrimonio.colaborador.entity.Colaborador;
 import com.techassets.techassets.patrimonio.colaborador.repository.ColaboradorRepository;
 import com.techassets.techassets.patrimonio.item.dto.ItemPatrimonioRequestDto;
@@ -44,7 +46,7 @@ public class ItemPatrimonioService {
     public ItemPatrimonio toEntity(ItemPatrimonioRequestDto dto){
         ItemPatrimonio itemPatrimonio = new ItemPatrimonio();
         Colaborador colaborador = colaboradorRepository.findById(dto.colaboradorId())
-                .orElseThrow(() -> new RuntimeException("Colaborador não encontrado."));
+                .orElseThrow(() -> new ColaboradorNotFoundException(dto.colaboradorId()));
         itemPatrimonio.setNome(dto.nome());
         itemPatrimonio.setNumeroSerie(dto.numeroSerie());
         itemPatrimonio.setCategoria(dto.categoria());
@@ -88,7 +90,7 @@ public class ItemPatrimonioService {
     // METODO PARA BUSCA DO ID
     private ItemPatrimonio buscarIdItem(Long id){
         return itemPatrimonioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("O item com ID: " + id + " não foi encontrado"));
+                .orElseThrow(() -> new ItemPatrimonioNotFoundException(id));
     }
 
 
@@ -119,7 +121,7 @@ public class ItemPatrimonioService {
     // ATUALIZAR OS CAMPOS
     public void atualizarItensCampos(ItemPatrimonio itemPatrimonio, ItemPatrimonioRequestDto dto){
         Colaborador colaborador = colaboradorRepository.findById(dto.colaboradorId())
-                .orElseThrow(() -> new RuntimeException("Colaborador não encontrado."));
+                .orElseThrow(() -> new ColaboradorNotFoundException(dto.colaboradorId()));
         itemPatrimonio.setNome(dto.nome());
         itemPatrimonio.setNumeroSerie(dto.numeroSerie());
         itemPatrimonio.setCategoria(dto.categoria());

@@ -1,4 +1,9 @@
 package com.techassets.techassets.exception;
 
-public class ProdutNotFoundException {
+public class ProdutoNotFoundException extends RuntimeException{
+
+    public ProdutoNotFoundException(Long id){
+        super("Produto com ID: " + id + " não foi encontrado.");
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.techassets.techassets.exception;
 
 public class ItemPatrimonioNotFoundException extends RuntimeException {
-  public ItemPatrimonioNotFoundException(String message) {
-    super(message);
-  }
+
+    public ItemPatrimonioNotFoundException(Long id) {
+        super("Item com ID: " + id + " não foi encontrado.");
+    }
+
 }

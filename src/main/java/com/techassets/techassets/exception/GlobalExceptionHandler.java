@@ -17,4 +17,27 @@ public class GlobalExceptionHandler {
         return ResponseEntity.internalServerError().body(errorResponseDto);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> produtoNotFound(ProdutoNotFoundException exception){
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(404, exception.getMessage(), LocalDateTime.now(), List.of());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDto);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> colaboradorNotFound(ColaboradorNotFoundException exception){
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(404, exception.getMessage(), LocalDateTime.now(), List.of());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDto);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> itemPatrimonioNotFound(ItemPatrimonioNotFoundException exception){
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(404, exception.getMessage(), LocalDateTime.now(), List.of());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDto);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> estoqueInsuficiente(EstoqueInsuficienteException exception){
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(422, exception.getMessage(), LocalDateTime.now(), List.of());
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errorResponseDto);
+    }
 }
